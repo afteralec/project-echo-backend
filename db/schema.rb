@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_04_213300) do
+ActiveRecord::Schema.define(version: 2020_09_05_000453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "contact_entries", force: :cascade do |t|
-    t.bigint "contact_list_id", null: false
+    t.bigint "user_id", null: false
     t.integer "contact_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["contact_list_id"], name: "index_contact_entries_on_contact_list_id"
+    t.index ["user_id"], name: "index_contact_entries_on_user_id"
   end
 
   create_table "contact_lists", force: :cascade do |t|
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2020_09_04_213300) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_contact_lists_on_user_id"
+  end
+
+  create_table "contact_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "contact_id"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_contact_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_09_04_213300) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "contact_entries", "contact_lists"
+  add_foreign_key "contact_entries", "users"
   add_foreign_key "contact_lists", "users"
+  add_foreign_key "contact_requests", "users"
 end

@@ -1,4 +1,14 @@
 class User < ApplicationRecord
-  has_one :contact_list, dependent: :destroy
-  has_many :contacts, through: :contact_list
+  has_many :listens, dependent: :destroy
+  has_many :listeners, through: :listens
+
+  after_create :set_default_status
+
+  enum status: [ :available, :unavailable ]
+
+  private
+
+  def set_default_status
+    self.status = "available"
+  end
 end
