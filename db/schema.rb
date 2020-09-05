@@ -10,45 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_05_000453) do
+ActiveRecord::Schema.define(version: 2020_09_05_010959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "contact_entries", force: :cascade do |t|
+  create_table "user_listeners", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "contact_id"
+    t.integer "listener_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_contact_entries_on_user_id"
-  end
-
-  create_table "contact_lists", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_contact_lists_on_user_id"
-  end
-
-  create_table "contact_requests", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "contact_id"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_contact_requests_on_user_id"
+    t.index ["user_id"], name: "index_user_listeners_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.string "echo"
+    t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "contact_entries", "users"
-  add_foreign_key "contact_lists", "users"
-  add_foreign_key "contact_requests", "users"
+  add_foreign_key "user_listeners", "users"
 end
