@@ -1,24 +1,11 @@
-# README
+# Project Echo Back End
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API documented by endpoint:
 
-Things you may want to cover:
+GET `http://domain/api/v1/users`:
 
-* Ruby version
+Will return a list of all users, including their listeners.
 
-* System dependencies
+GET `http://domain/api/v1/users/:id`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Will return a single user including their listeners
