@@ -8,6 +8,10 @@ class Api::V1::UsersController < ApplicationController
   def show
     user = User.includes(:listeners).find(params[:id])
 
-    render json: user, include: [ :listeners ]
+    render json: user, include: {
+      listeners: {
+        except: [ :created_at, :updated_at ]
+      }
+    }
   end
 end

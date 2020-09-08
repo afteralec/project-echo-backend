@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :echos_received, through: :echo_listeners, source: :echo
 
   def gravatar_url
-    "https://www.gravatar.com/avatar/#{self.gravatar_email_hash}?d=wavatar"
+    "https://www.gravatar.com/avatar/#{self.gravatar_email_hash}?d=robohash"
   end
 
   private

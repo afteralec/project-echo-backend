@@ -5,8 +5,9 @@ class Api::V1::EchosController < ApplicationController
     end
   
     def show
-      echo = Echo.find(params[:id])
-      render json: echo
-    end
+      echos = User.find(params[:id]).echos_received
 
+      render json: echos, include: [ :user ]
+    end
   end
+  
