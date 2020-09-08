@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_05_010959) do
+ActiveRecord::Schema.define(version: 2020_09_08_212427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "echo_listeners", force: :cascade do |t|
+    t.bigint "echo_id", null: false
+    t.bigint "listener_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["echo_id"], name: "index_echo_listeners_on_echo_id"
+  end
+
+  create_table "echos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "user_listeners", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -32,5 +47,6 @@ ActiveRecord::Schema.define(version: 2020_09_05_010959) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "echo_listeners", "echos"
   add_foreign_key "user_listeners", "users"
 end
