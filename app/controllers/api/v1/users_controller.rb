@@ -14,4 +14,11 @@ class Api::V1::UsersController < ApplicationController
       }
     }
   end
+
+  def listen
+    # user = User.find(params[:id])
+    # listener = User.find(params[:listener_id])
+
+    UserListener.create(user_id: params[:id], listener_id: params[:listener_id])
+  end
 end
