@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :last_name
       t.string :email
       t.integer :status
+      t.string :gravatar_url
 
       t.timestamps
     end

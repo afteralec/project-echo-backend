@@ -8,13 +8,14 @@ class User < ApplicationRecord
   has_many :echos_received, through: :echo_listeners, source: :echo
 
   validates_uniqueness_of :email
-  validates :password, presence: :true
 
-  def gravatar_url
-    "https://www.gravatar.com/avatar/#{self.gravatar_email_hash}?d=robohash"
-  end
+  after_validation :set_gravatar_url
 
   private
+
+  def set_gravatar_url
+    self.gravatar_url = "https://www.gravatar.com/avatar/#{self.gravatar_email_hash}?d=robohash"
+  end
 
   def gravatar_email_hash
     Digest::MD5.hexdigest self.email.strip.downcase
