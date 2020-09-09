@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :echo_listeners, foreign_key: :listener_id, dependent: :destroy
   has_many :echos_received, through: :echo_listeners, source: :echo
 
+  validates_uniqueness_of :email
+  validates :password, presence: :true
+
   def gravatar_url
     "https://www.gravatar.com/avatar/#{self.gravatar_email_hash}?d=robohash"
   end
