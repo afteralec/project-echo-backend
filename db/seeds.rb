@@ -73,7 +73,7 @@ danira_echo.listeners << amelie
 nathan_echo = Echo.create(user: nathan, message: "Amelie is a great instructor who cares about her students' success. It's so apparent that she knows her stuff and her love of Javascript is quite contagious. She's a bright and patient with us and continually guides us to do our best.")
 nathan_echo.listeners << amelie
 
-ronak_echo = Echo.create(user: ronak, message: "")
+ronak_echo = Echo.create(user: ronak, message: "Amelie explains each concept of software engineering with in-depth knowledges. her way of approach to teaching students which is very appropriate for better understanding. Moreover, she is very polite nature and giving more ideas and techniques which helps students to enhancing their knowledge.")
 ronak_echo.listeners << amelie
 
 brandon_echo = Echo.create(user: brandon, message: "Amelie is always willing to spend a little extra time with a student answering questions and going over anything that may be unclear. She explains concepts from multiple angles and really seems to have a vested interest in student comprehension. I'm happy to have her as an instructor!")
