@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [ :index, :show ]
-      resources :echos, only: [ :show ]
+      resources :echos, only: [ :show, :create]
       get '/listen/:id', to: 'users#listen'
       get '/unlisten/:id', to: 'users#unlisten'
     end
