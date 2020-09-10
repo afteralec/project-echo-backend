@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :users, only: [ :index, :show ]
       resources :echos, only: [ :show ]
       get '/listen/:id', to: 'users#listen'
+      get '/unlisten/:id', to: 'users#unlisten'
     end
   end
 
