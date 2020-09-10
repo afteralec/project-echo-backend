@@ -5,7 +5,13 @@ class Api::V1::EchosController < ApplicationController
     end
   
     def show
-      echos = User.find(params[:id]).echos_received
+      user = User.includes(:echos).find(params[:id])
+      echos = []
+      user.echos_received.each { |echo| echos << echo }
+      user.echos.each { |echo| echos << echo }
+
+      echos.sort_by!(&:created_at).reverse!
+
       render json: echos, include: [ :user ]
     end
     
@@ -16,9 +22,28 @@ class Api::V1::EchosController < ApplicationController
       render json: echo, include: [ :user ]
     end 
 
-    private 
-      def echo_params
-        params.require(:echo).permit(:user_id, :message, listeners: [])
+    def listen
+      if EchoListener.create(echo_id: params[:id], listener_id: params[:listener_id])
+        render json: { message: "Now listening to this echo!" }
+      else
+        render json: { message: "Unable to listen to this echo." }
       end
+    end
+  
+    def unlisten
+      echo_listener = EchoListener.find_by(echo_id: params[:id], listener_id: params[:listener_id])
+      
+      byebug
+
+      echo_listener.destroy if !!echo_listener
+
+      render json: { message: "Unlistened successfully." }
+    end
+
+    private
+
+    def echo_params
+      params.require(:echo).permit(:user_id, :message, listeners: [])
+    end
   end
   
