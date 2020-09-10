@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users, only: [ :index, :show ]
-      resources :echos, only: [ :show, :create]
+      resources :users, only: [ :index, :show, :update ]
+      resources :echos, only: [ :show, :create ]
       get '/listen/:id', to: 'users#listen'
       get '/unlisten/:id', to: 'users#unlisten'
+
+      get 'echos/listen/:id', to: 'echos#listen'
+      get 'echos/unlisten/:id', to: 'echos#unlisten'
     end
   end
 

@@ -20,10 +20,15 @@ class Api::V1::UsersController < ApplicationController
     }
   end
 
-  def listen
-    # user = User.find(params[:id])
-    # listener = User.find(params[:listener_id])
+  def update
+    user = User.find(params[:id])
 
+    user.update(status: params[:user][:status])
+
+    render json: { message: "Status updated successfully." }
+  end
+
+  def listen
     if UserListener.create(user_id: params[:id], listener_id: params[:listener_id])
       echos = {
         Hal: "Amelie’s comprehensive knowledge of the course material is surpassed only by her natural talent in conveying it to the students",
@@ -42,8 +47,6 @@ class Api::V1::UsersController < ApplicationController
       if !!echos[user.first_name.to_sym]
         echo = Echo.create(user: user, message: echos[user.first_name.to_sym])
         EchoListener.create(echo_id: echo.id, listener_id: params[:listener_id])
-      else
-        puts "User not found!"
       end
 
       if !!echo
@@ -57,6 +60,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def unlisten
+    User.includes(:echos).find(params[:id]).echos.first.destroy
+    
     userListener = UserListener.find_by(user_id: params[:id], listener_id: params[:listener_id]);
     echoListeners = EchoListener.where(listener_id: params[:listener_id]);
 
