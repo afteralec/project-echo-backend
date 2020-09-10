@@ -5,7 +5,7 @@ class Echo < ApplicationRecord
   has_many :echo_listeners, dependent: :destroy
   has_many :listeners, through: :echo_listeners
 
-  after_initialize :set_user_name
+  # after_initialize :set_user_name
 
   private
 

@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_212427) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.integer "status"
+    t.string "status"
     t.string "gravatar_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
