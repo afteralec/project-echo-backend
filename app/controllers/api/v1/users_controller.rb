@@ -10,6 +10,11 @@ class Api::V1::UsersController < ApplicationController
 
     render json: user, include: {
       listeners: {
+        include: {
+          listeners: {
+            only: [ :id ]
+          }
+        },
         except: [ :created_at, :updated_at ]
       }
     }
@@ -49,5 +54,15 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: { message: "You can't listen to someone more than once!" }
     end
+  end
+
+  def unlisten
+    userListener = UserListener.find_by(user_id: params[:id], listener_id: params[:listener_id]);
+    echoListeners = EchoListener.where(listener_id: params[:listener_id]);
+
+    userListener.destroy if !!userListener
+    echoListeners.each { |echoListener| echoListener.destroy }
+
+    render json: { message: "Unlistened successfully." }
   end
 end
